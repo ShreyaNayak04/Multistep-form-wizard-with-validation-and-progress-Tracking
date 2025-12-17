@@ -5,6 +5,9 @@ const initialFormData = {
     fullName: '',
     email: '',
     mobile: '',
+    gender: '',
+    dob: '',
+    profileImage: null,
   },
   addressInfo: {
     address: '',
@@ -35,6 +38,7 @@ export const FormProvider = ({ children }) => {
     return saved ? JSON.parse(saved) : initialFormData;
   });
   const [currentStep, setCurrentStep] = useState(0);
+  const [profileImage, setProfileImage] = useState(null);
 
   useEffect(() => {
     localStorage.setItem('onboardingForm', JSON.stringify(formData));
@@ -57,7 +61,7 @@ export const FormProvider = ({ children }) => {
   };
 
   return (
-    <FormContext.Provider value={{ formData, updateForm, currentStep, setCurrentStep, resetForm }}>
+    <FormContext.Provider value={{ formData, updateForm, currentStep, setCurrentStep, resetForm, profileImage, setProfileImage }}>
       {children}
     </FormContext.Provider>
   );

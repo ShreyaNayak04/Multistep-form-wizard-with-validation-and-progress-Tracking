@@ -15,7 +15,7 @@ import "../styles/form.css";
 
 
 function MultiStepForm() {
-  const { formData, currentStep, setCurrentStep, resetForm } = useFormContext();
+  const { formData, currentStep, setCurrentStep, resetForm, profileImage } = useFormContext();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
@@ -95,7 +95,10 @@ function MultiStepForm() {
                 ...formData.preferences,
                 ...(isBusiness ? formData.business : {}),
               };
-              await saveUser(apiData);
+              // Remove profileImage from apiData if it exists
+              delete apiData.profileImage;
+              
+              await saveUser(apiData, profileImage);
               setSuccess(true);
               resetForm();
             } finally {
